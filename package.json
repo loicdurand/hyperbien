@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "example": "npx parcel serve example/index.html",
-    "ld-bundler": "npx ld-bundler -i example/lib/ -o example/builds --lib hyperbien -w -v"
+    "ld-bundler": "npx ld-bundler -i example/lib/ -o example/builds --import-name style --lib hyperbien -w -v"
   },
   "author": "",
   "license": "Apache-2.0",

@@ -1,4 +1,4 @@
-import style from './style';
+import styled from './style';
 
 const //
     refs = [],
@@ -8,7 +8,7 @@ const //
     isFunc = o => ({}.toString.call(o)) === '[object Function]',
     isNode = o => o && o.nodeType === Node.ELEMENT_NODE;
 
-export const assoc = style;
+export const style = styled;
 
 export const h = (nodeName, props, ...children) => {
 

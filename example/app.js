@@ -2,8 +2,6 @@
 
 import 'babel-polyfill';
 
-import { assoc } from 'hyperbien';
-
 import { h, app } from '../index';
 import routes from '../router';
 import style from '../style';
