@@ -2,6 +2,21 @@ const isNode = o => o && o.nodeType === Node.ELEMENT_NODE;
 
 export default {
 
+    is: {
+        null: o => o === null,
+        undefined: o => o === undefined,
+        string: o => o.constructor === 'test'.constructor,
+        number: o => !isNaN(o),
+        array: o => o.constructor === [].constructor,
+        obj: o => o.constructor === ({}).constructor,
+        func: o => ({}.toString.call(o)) === '[object Function]',
+        node: isNode,
+    },
+
+    /**
+     * string functions
+     */
+
     addZeros: (str, maxlen = 2) => {
         str = '' + str;
         while (str.length < maxlen)
@@ -49,7 +64,13 @@ export default {
 
     },
 
+    pluralize: (nb, sing, plur) => (isNaN(nb) || +nb > 1) ? plur || (sing + 's') : sing,
+
     unicId: () => Math.random().toString(36).substr(2, 9),
+
+    /**
+     * DOM functions
+     */
 
     empty: target => {
         target = isNode(target) ? target : document.querySelector(target);
@@ -57,8 +78,6 @@ export default {
             target.innerHTML = "";
         return target;
     },
-
-    pluralize: (nb, sing, plur) => (isNaN(nb) || +nb > 1) ? (plur || (sing.split(' ')).join('s ') + 's') : sing,
 
     insertAfter: (referenceNode, newNode) => {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -74,28 +93,6 @@ export default {
         while (!elt.matches(match) && elt.parentElement.nodeName != 'BODY' && elt.parentElement.parentElement)
             elt = elt.parentElement;
         return elt;
-    },
-
-    is: {
-        null: o => o === null,
-        undefined: o => o === undefined,
-        string: o => o.constructor === 'test'.constructor,
-        number: o => !isNaN(o),
-        array: o => o.constructor === [].constructor,
-        obj: o => o.constructor === ({}).constructor,
-        func: o => ({}.toString.call(o)) === '[object Function]',
-        node: isNode,
-    },
-
-    canvasToBase64: (canvas) => {
-        const // 
-            copy = canvas.cloneNode(true),
-            ctx = copy.getContext('2d'),
-            { width, height } = copy;
-        ctx.fillStyle = "#FFF";
-        ctx.fillRect(0, 0, width, height);
-        ctx.drawImage(canvas, 0, 0);
-        return copy.toDataURL("image/jpeg");
     }
 
 };

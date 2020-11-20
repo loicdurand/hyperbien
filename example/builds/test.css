@@ -1,16 +1,16 @@
-H1{
+.S0C0{
     color: blue;
 }
 
-Medium{
+.S0C1{
     color: red;
     border: 1px solid;
 }
 
-div#app H1{
+div#app .S0C0{
     font-size: 45px;
 }
 
-div.Medium H1{
+div.Medium .S0C0{
     color: green;
 }

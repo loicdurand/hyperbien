@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "example": "npx parcel serve example/index.html"
+    "example": "npx parcel serve example/index.html",
+    "ld-bundler": "npx ld-bundler -i example/lib/ -o example/builds --lib hyperbien -w -v"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -13,7 +14,9 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "ld-bundler": "git://github.com/loicdurand/ld-bundler.git",
     "parcel-bundler": "^1.12.4"
   }
 }

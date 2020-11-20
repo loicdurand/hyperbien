@@ -1,5 +1,5 @@
 
-export default ({ Utils: { h } }, actions, { Big, Medium }) => ({
+export default ({ Utils: { h } }, actions, { H1, Medium }) => ({
 
     state: {
         sub_preview: -1,
@@ -21,7 +21,7 @@ export default ({ Utils: { h } }, actions, { Big, Medium }) => ({
 
     view: (state, actions) => (
         <div>
-            <Big name="toto">coucou</Big>
+            <H1 name="toto">coucou</H1>
             <Medium id="result">{state.i}</Medium>
             <button class="btn red" onclick={actions.sub}>-1 ( affichera {state.sub_preview})</button>
             <button class="btn" onclick={actions.add}>+1 ( affichera {state.up_preview})</button>

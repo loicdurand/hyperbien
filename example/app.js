@@ -1,27 +1,24 @@
 'use strict';
 
+import 'babel-polyfill';
+
+import { assoc } from 'hyperbien';
+
 import { h, app } from '../index';
 import routes from '../router';
 import style from '../style';
 import xhr from '../xhr';
+import utils from '../utils';
 
 import imported_view from './imported_view';
 
+import stylesheet from './app.css';
+
+import Collection from './builds/test';
+
 routes({
     // les composants / objets à intégrer
-    collection: style(This => ({
-        Big: (props, children) => <h1>{children}: {props.name}</h1>,
-        Medium: (props, children) => <h2 {...props}>{children}</h2>,
-        MediumBis: (props, children) => <This.Medium {...props}>Medium Bis: {children}</This.Medium>
-    }))`
-        Big{
-            color: blue;
-        }
-        Medium{
-            color: red;
-            border: 1px solid;
-        }
-    `,
+    collection,
     // le composant <Layout /> de la forme (props,children) => <Layout {...props}>{children}</Layout>
     layout: (state, actions) => (
         <div>
@@ -53,9 +50,9 @@ routes({
         {
             path: 'hello/:who',
             view: {
-                view: (state, actions, { Big, Medium, MediumBis }) => (
-                    <div>
-                        <Big name="toto">coucou</Big>
+                view: (state, actions, { H1, Medium, MediumBis }) => (
+                    <div class="Medium">
+                        <H1 name="toto">coucou</H1>
                         <Medium id="result">{state.i}</Medium>
                         <MediumBis>hi</MediumBis>
                         <button class="btn red" onclick={actions.sub}>-1</button>
