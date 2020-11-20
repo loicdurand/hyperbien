@@ -12,9 +12,7 @@ import utils from '../utils';
 
 import imported_view from './imported_view';
 
-import stylesheet from './app.css';
-
-import Collection from './builds/test';
+import collection from './builds/test';
 
 routes({
     // les composants / objets à intégrer
