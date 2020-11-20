@@ -13,8 +13,9 @@ export default collection => decls => {
     if (typeof decls == 'object') {
         for (let cpnt in Collection)
             output[cpnt] = (props, children) => {
-                id = decls[cpnt];
-                const attrs = props === null ? { class: '' } : props;
+                const // 
+                    id = decls[cpnt],
+                    attrs = props === null ? { class: '' } : props;
                 attrs.class = attrs.class || '';
                 attrs.class += ' ' + id;
                 return Collection[cpnt](attrs, children);
