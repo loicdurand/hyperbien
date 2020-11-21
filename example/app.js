@@ -2,9 +2,10 @@
 
 import 'babel-polyfill';
 
+import { style } from 'hyperbien';
+
 import { h, app } from '../index';
 import routes from '../router';
-import style from '../style';
 import xhr from '../xhr';
 import utils from '../utils';
 
@@ -48,7 +49,7 @@ routes({
             view: {
                 view: (state, actions, { H1, Medium, MediumBis }) => (
                     <div class="Medium">
-                        <H1 name="toto">coucou</H1>
+                        <H1 name="toto">it works</H1>
                         <Medium id="result">{state.i}</Medium>
                         <MediumBis>hi</MediumBis>
                         <button class="btn red" onclick={actions.sub}>-1</button>
