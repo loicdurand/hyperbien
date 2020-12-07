@@ -2,8 +2,6 @@
 
 import 'babel-polyfill';
 
-import { style } from 'hyperbien';
-
 import { h, app } from '../index';
 import layout from '../layout';
 import routes from '../router';
@@ -28,7 +26,7 @@ const //
 
     })),
 
-    Routes = routes(({ state, actions, view, container }) => ({
+    Main = routes(({ state, actions, view, container }) => ({
 
         // les variables à inclure systématiquement dans le state
         state: {
@@ -47,7 +45,7 @@ const //
 
             }
         },
-        
+
         // définition des routes
         routes: [
             {
@@ -81,10 +79,12 @@ const //
         container: document.getElementById('app'),
 
         // callback pour toutes les routes
-        callback: ({ state, actions, view, container }) => app(Layout(state, actions, view, container))
+        callback: (Route) => {
+
+            app(Layout(Route));
+
+        }
 
     }));
 
-Routes();
-
-//app(Layout(Routes()));
+Main();

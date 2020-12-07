@@ -1,5 +1,3 @@
-import styled from './style';
-
 const //
     refs = [],
     create = new Event('create'),
@@ -7,8 +5,6 @@ const //
     isObj = o => o.constructor === ({}).constructor,
     isFunc = o => ({}.toString.call(o)) === '[object Function]',
     isNode = o => o && o.nodeType === Node.ELEMENT_NODE;
-
-export const style = styled;
 
 export const h = (nodeName, props, ...children) => {
 

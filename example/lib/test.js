@@ -1,4 +1,5 @@
-import { style, h } from 'hyperbien';
+import { h } from 'hyperbien';
+import { style } from 'hyperbien/style';
 
 import stylesheet from './test.css';
 

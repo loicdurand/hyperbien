@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3"
+    "babel-core": "^6.26.3",
+    "hyperbien": "git://github.com/loicdurand/hyperbien.git"
   },
   "dependencies": {}
 }
