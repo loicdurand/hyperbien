@@ -1,66 +1,104 @@
-const isFunc = o => ({}.toString.call(o)) === '[object Function]';
+const // 
 
-class Router {
+    isFunc = o => ({}.toString.call(o)) === '[object Function]',
 
-    constructor(options = {}) {
+    getFrom = args => {
 
-        const // 
+        let //
+            state = {}, actions = {}, view = (props, children) => <div>{children}</div>, container = document.getElementById('app') || document.body;
 
-            {
-                separator = '/',
-                collection = {},
-                path = location.pathname.substr(1) || 'index',
-                layout = (props, children, collection) => children,
-                state = {},
-                actions = {},
-                container = document.getElementById('app') || document.body,
-                routes = [],
-                callback = false,
-            } = options,
+        if (args.length == 1) {
+            const o = args[0];
+            if (isFunc(o))
+                view = o;
+            else {
+                state = 'state' in o ? o.state : state;
+                actions = 'actions' in o ? o.actions : actions;
+                view = 'view' in o ? o.view : view;
+                container = 'container' in o ? o.container : container;
 
-            match = routes.find(({ path: route_path }) => new RegExp(
-                '^' + route_path.split(separator)
-                    .filter(Boolean)
-                    .map(exp => exp == '*' || exp.charAt(0) == ':' ? '.*' : exp.replace(/\*/g, '.*'))
-                    .join('/')
-            ).test(path));
-
-        this.state = state;
-        this.actions = actions;
-        this.container = container;
-        this.collection = collection;
-
-        if (match) {
-
-            match.view = !isFunc(match.view) ? match.view : match.view(this.state, this.actions, this.collection);
-
-            match.path.split(separator)
-                .map((exp, i) => exp.charAt(0) == ':' && (this.state[exp.substr(1)] = path.split(separator)[i]));
-
-            for (let prop in match.state)
-                if ({}.toString.call(match.state[prop]) === '[object Function]') {
-                    this.state[prop] = match.state[prop](this.state);
-                } else
-                    this.state[prop] = match.state[prop];
-
-            this.state = Object.assign(this.state, match.view.state || {});
-            this.actions = Object.assign(match.view.actions || {}, this.actions);
-            this.view = (props, children, collection) => layout(props, Object.assign(match.view.view(props, children, collection), this.actions));
-
-            callback && callback(this);
-
-        };
+            }
+        } else {
+            state = args[0] || state;
+            actions = args[1] || actions;
+            view = args[2] || view;
+            container = args[3] || container;
+        }
 
         return {
-            state: this.state,
-            actions: this.actions,
-            view: this.view,
-            container: this.container,
-            collection
+            state,
+            actions,
+            view,
+            container
         };
 
-    }
+    };
+
+export default fn => (...args) => {
+
+    const // 
+
+        { state, actions, view, container } = getFrom(args),
+
+        that = fn({
+            state,
+            actions,
+            view,
+            container
+        }),
+
+        {
+            separator = '/',
+            path = location.pathname.substr(1) || 'index',
+            routes = [],
+            callback = false
+        } = that,
+
+        match = routes.find(({ path: route_path }) => new RegExp(
+            '^' + route_path.split(separator)
+                .filter(Boolean)
+                .map(exp => exp == '*' || exp.charAt(0) == ':' ? '.*' : exp.replace(/\*/g, '.*'))
+                .join('/')
+        ).test(path));
+
+    that.state = Object.assign(that.state, state);
+    that.actions = Object.assign(that.actions, actions);
+    that.container = container;
+
+    if (match) {
+
+        match.path.split(separator)
+            .map((exp, i) => exp.charAt(0) == ':' && (that.state[exp.substr(1)] = path.split(separator)[i]));
+
+        for (let prop in match.state)
+            if ({}.toString.call(match.state[prop]) === '[object Function]') {
+                that.state[prop] = match.state[prop](that.state);
+            } else
+                that.state[prop] = match.state[prop];
+
+        if (isFunc(match.view)) {
+
+            match.view().then(match => {
+                that.state = Object.assign(that.state, match.state || {});
+                that.actions = Object.assign(match.actions || {}, that.actions);
+                that.view = match.view;
+                callback && callback(that);
+            });
+
+        } else {
+            that.state = Object.assign(that.state, match.view.state || {});
+            that.actions = Object.assign(match.view.actions || {}, that.actions);
+            that.view = match.view.view;
+            callback && callback(that);
+        }
+
+    };
+
+    return {
+        state: that.state,
+        actions: that.actions,
+        view: that.view,
+        container: that.container
+    };
 
 };
-
-export default options => new Router(options);

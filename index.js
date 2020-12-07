@@ -45,7 +45,6 @@ export const app = (options, actions = options.actions, view = options.view, con
 
     const //
         acts = {},
-        collection = options.collection,
         state = 'state' in options ? options.state : options;
 
     for (let action in actions) {
@@ -61,18 +60,18 @@ export const app = (options, actions = options.actions, view = options.view, con
                     actions,
                     view,
                     container: empty(container),
-                    collection
                 });
                 return result;
             }
         }
     }
 
-    container.appendChild(view(state, acts, collection));
+    container.appendChild(view(state, acts));
 
     refs.map((elt) => {
         elt.dispatchEvent(create);
     });
+
     refs.length = 0;
 
 };

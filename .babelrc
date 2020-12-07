@@ -1,25 +1,21 @@
 {
     "presets": [
-        "env"
+      "env"
     ],
     "plugins": [
-        [
-            "transform-object-rest-spread",
-            "transform-react-jsx",
-            "emotion"
-        ],
-        [
-            "transform-react-jsx",
-            {
-                "pragma": "h"
-            }
-        ],
-        [
-            "transform-runtime",
-            {
-                "polyfill": false,
-                "regenerator": true
-            }
-        ]
+      [
+        "syntax-object-rest-spread",
+        "transform-object-rest-spread",
+        "transform-react-jsx",
+        "emotion",
+        "transform-runtime",
+        "@babel/plugin-syntax-dynamic-import"
+      ],
+      [
+        "transform-react-jsx",
+        {
+          "pragma": "h"
+        }
+      ]
     ]
-}
+  }
