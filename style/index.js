@@ -1,6 +1,6 @@
 let _id = Math.floor(Math.random() * 1e6);
 
-export default collection => decls => {
+const styler = collection => decls => {
 
     const //
         isFunc = o => ({}.toString.call(o)) === '[object Function]',
@@ -48,3 +48,6 @@ export default collection => decls => {
     }
 
 };
+
+export default styler;
+export const style = styler;
