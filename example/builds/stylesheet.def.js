@@ -1,4 +1,4 @@
 export default {
-	"H1": "S2C0",
-	"Medium": "S2C1"
+	"H1": "S0C0",
+	"Medium": "S0C1"
 };

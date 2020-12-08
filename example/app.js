@@ -80,15 +80,10 @@ new Promise((resolve, reject) => {
     }))();
 
     if (!view)
-        reject({ state, actions, view, container });
-
-}).then((Route) => {
-
-    app(Layout(Route));
-
-}).catch(params => {
-
-    params.view = () => <div>La page demandée n'existe pas</div>;
-    app(Layout(params));
+        reject({ state, actions, view: () => <div>La page demandée n'existe pas</div>, container });
 
 })
+
+    .then(Route => app(Layout(Route)))
+
+    .catch(Route => app(Layout(Route)));
