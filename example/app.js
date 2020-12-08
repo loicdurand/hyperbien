@@ -24,9 +24,11 @@ const //
             </div>
         )
 
-    })),
+    }));
 
-    Main = routes(({ state, actions, view, container }) => ({
+new Promise((resolve, reject) => {
+
+    const { state, actions, view, container } = routes(({ state, actions, view, container }) => ({
 
         // les variables à inclure systématiquement dans le state
         state: {
@@ -65,13 +67,7 @@ const //
             // page d'accueil
             {
                 path: 'index',
-                view: () => {
-                    return new Promise((resolve, reject) => {
-                        import('./imported_view')
-                            .then(({ view: imported_view }) => resolve(imported_view))
-                            .catch(error => reject(error))
-                    })
-                }
+                view: () => import('./imported_view')//.then(({ view }) => view)
             },
 
         ],
@@ -79,12 +75,20 @@ const //
         container: document.getElementById('app'),
 
         // callback pour toutes les routes
-        callback: (Route) => {
+        callback: resolve
 
-            app(Layout(Route));
+    }))();
 
-        }
+    if (!view)
+        reject({ state, actions, view, container });
 
-    }));
+}).then((Route) => {
 
-Main();
+    app(Layout(Route));
+
+}).catch(params => {
+
+    params.view = () => <div>La page demandée n'existe pas</div>;
+    app(Layout(params));
+
+})

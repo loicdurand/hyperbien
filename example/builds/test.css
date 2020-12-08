@@ -1,16 +1,16 @@
-.S0C0{
+.S2C0{
     color: blue;
 }
 
-.S0C1{
+.S2C1{
     color: red;
     border: 1px solid;
 }
 
-div#app .S0C0{
+div#app .S2C0{
     font-size: 45px;
 }
 
-div.Medium .S0C0{
+div.Medium .S2C0{
     color: green;
 }

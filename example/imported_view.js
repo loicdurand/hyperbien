@@ -6,10 +6,6 @@ const { H1, Medium } = collection;
 
 export const view = {
 
-    state: {},
-
-    actions: {},
-
     view: (state, actions) => (
         <div>
             <H1 name="toto">coucou</H1>
